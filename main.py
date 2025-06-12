@@ -48,7 +48,7 @@ def bruteforce(Frontpack):
         if (best_combination & (1 << i)):
             print(i+1, "", end="")
     print()
-
+    return best_combination
 
 Frontpack = Backpack()
 Frontpack.read_data("data.txt")
