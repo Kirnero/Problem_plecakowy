@@ -53,6 +53,32 @@ def bruteforce(Frontpack):
     selected.reverse()
     return selected
 
+def dynamic(Frontpack):
+    tab=[[0]]*(Frontpack.ilosc_przedmiotow+1)
+    for i in range(Frontpack.ilosc_przedmiotow+1):
+        tab[i] = [0]*(Frontpack.pojemnosc+1)
+
+    for i in range(1, Frontpack.ilosc_przedmiotow+1):
+        for j in range(Frontpack.pojemnosc+1):
+            if Frontpack.wagi[i-1] <= j:
+                tab[i][j] = max(tab[i-1][j], tab[i-1][j-Frontpack.wagi[i-1]] + Frontpack.wartosci[i-1])
+            else:
+                tab[i][j] = tab[i-1][j]
+    
+    print(f"Maksymalna wartość: {tab[Frontpack.ilosc_przedmiotow][Frontpack.pojemnosc]}")
+
+    selected = []
+    temp = Frontpack.pojemnosc
+    for i in range(Frontpack.ilosc_przedmiotow, 0, -1):
+        if tab[i][temp] != tab[i-1][temp]:
+            selected.append(i-1)
+            temp-=Frontpack.wagi[i-1]
+    selected.reverse()
+    print("Wybrane przedmioty: ", end="")
+    for item in selected: print(item+1, end=" ")
+    print()
+    return selected
+
 
 Frontpack = Backpack()
 Frontpack.read_data("data.txt")
