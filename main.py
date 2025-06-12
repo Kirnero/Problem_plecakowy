@@ -44,11 +44,15 @@ def bruteforce(Frontpack):
 
     print("Maksymalna wartosc: ", max_value)
     print("Wybrane przedmioty: ", end="")
+    selected=[]
     for i in range(0, Frontpack.ilosc_przedmiotow):
         if (best_combination & (1 << i)):
             print(i+1, "", end="")
+            selected.append(i)
     print()
-    return best_combination
+    selected.reverse()
+    return selected
+
 
 Frontpack = Backpack()
 Frontpack.read_data("data.txt")
