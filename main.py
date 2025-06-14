@@ -28,6 +28,7 @@ class Backpack:
         file.close()
 
 def bruteforce(Frontpack):
+    print("\nUruchamianie algorytmu bruteforce...")
     max_value = 0
     best_combination = 0
     for i in range(1 << Frontpack.ilosc_przedmiotow):
@@ -54,6 +55,7 @@ def bruteforce(Frontpack):
     return selected
 
 def dynamic(Frontpack):
+    print("\nUruchamianie algorytmu dynamic...")
     tab=[[0]]*(Frontpack.ilosc_przedmiotow+1)
     for i in range(Frontpack.ilosc_przedmiotow+1):
         tab[i] = [0]*(Frontpack.pojemnosc+1)
@@ -65,7 +67,7 @@ def dynamic(Frontpack):
             else:
                 tab[i][j] = tab[i-1][j]
     
-    print(f"Maksymalna wartość: {tab[Frontpack.ilosc_przedmiotow][Frontpack.pojemnosc]}")
+    print(f"Maksymalna wartość:{tab[Frontpack.ilosc_przedmiotow][Frontpack.pojemnosc]}")
 
     selected = []
     temp = Frontpack.pojemnosc
@@ -81,6 +83,11 @@ def dynamic(Frontpack):
 
 
 Frontpack = Backpack()
-Frontpack.read_data("data.txt")
+inp = input("Podaj nazwe pliku lub q zeby zaladowac data.txt >")
+if inp=="q":
+    Frontpack.read_data("data.txt")
+else:
+    Frontpack.read_data(inp)
 print(Frontpack)
 bruteforce(Frontpack)
+dynamic(Frontpack)
